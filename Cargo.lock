@@ -1,5 +1,5 @@
 [root]
-name = "doki"
+name = "dokio"
 version = "0.1.0"
 dependencies = [
  "config 0.1.3 (registry+https://github.com/rust-lang/crates.io-index)",

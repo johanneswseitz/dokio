@@ -1,5 +1,5 @@
 [package]
-name = "doki"
+name = "dokio"
 version = "0.1.0"
 authors = ["Johannes Seitz <johannes.w.seitz@gmail.com>"]
 

@@ -18,7 +18,7 @@ use handlers::{IndexHandler, MarkdownFileHandler};
 
 fn main() {
     let empty_default_config = Config::new(HashMap::new());
-    let configuration = reader::from_file(Path::new("Dokifile")).unwrap_or(empty_default_config);
+    let configuration = reader::from_file(Path::new("Dokiofile")).unwrap_or(empty_default_config);
 
     let listening_port = configuration.lookup_integer32_or("port", 3000);
     let default_file = configuration.lookup_str_or("default_file", "README.md");
@@ -28,6 +28,6 @@ fn main() {
     router.get("/*.md", MarkdownFileHandler::new(), "file");
 
     let _server = Iron::new(router).http(format!("localhost:{}", listening_port).as_str()).unwrap();
-    println!("Doki is running on port {}", listening_port);
+    println!("Dokio is running on port {}", listening_port);
 }
 
