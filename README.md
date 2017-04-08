@@ -1,6 +1,6 @@
 # Dokio 
 
-Dokio is a Wiki for Agile Software Documentation that lives in your source code repository and is super easy to use. Why not version control your documentation along with your software and keep it in sync with Dokio's advanced features that enable living documentation and automatic drift checks.
+Dokio is a Wiki for *agile software and architecture documentation* that lives in your source code repository and is super easy to use. Why not version control your documentation along with your software and keep it in sync with Dokio's advanced features that enable living documentation and automatic drift checks.
 
 ## Documentation
 
