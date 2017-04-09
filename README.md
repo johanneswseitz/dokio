@@ -4,18 +4,18 @@ Dokio is a Wiki for *agile software and architecture documentation* that lives i
 
 ## Features
 
-### Markdown powered by [pulldown-cmark](https://docs.rs/pulldown-cmark/0.0.11/pulldown_cmark/)
+### It's Markdown powered by [pulldown-cmark](https://docs.rs/pulldown-cmark/0.0.11/pulldown_cmark/)
 
 You can use the full Markdown syntax as defined by the [commonmark]() standard to write your documentation. Including 
 images, hyperlinks and if that's not enough, you can always fall back on plain html.
 
-### Diagrams as code powered by [nomnoml](http://nomnoml.com/)
+### It's diagrams as code powered by [nomnoml](http://nomnoml.com/)
 
 <pre class="diagram">
 [nomnoml] is -> [awesome]
 </pre>
 
-### It's fast and it's easy
+### It's fast and it's easy to use.
 
 Dokio is written in [Rust](https://www.rust-lang.org). That's why it's super fast and works right out of the box.
 No installing *insert language runtime you hate* or *insert package manger you hate*. It's just a small binary, you can check into your SCM. That's all.
@@ -25,6 +25,21 @@ No installing *insert language runtime you hate* or *insert package manger you h
 Because Dokio lives in your SCM, all you documentation is version controlled and in sync with your source code version.
 And since Dokio treats your diagrams as code as well, changes are easy and don't require specialised tools and the 
 original format that created the image files. 
+
+### It's beautiful.
+
+Dokio uses Twitter Bootstrap for nice typography and beautiful CSS components.
+
+![This document rendered by Dokio](screenshot.png)
+
+### It's customisable.
+
+Don't like the above theme? Write your own! It's easy.
+
+### It's getting even better.
+
+One of the next big features will be the ability to link your source code and documentation, so that they never go out 
+of date again.
 
 ## Documentation
 
