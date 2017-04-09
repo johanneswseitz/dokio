@@ -1,6 +1,6 @@
 #[macro_use] extern crate nickel;
 extern crate config;
-extern crate markdown;
+extern crate pulldown_cmark;
 
 use nickel::Nickel;
 
@@ -11,6 +11,8 @@ use std::io::{Read,BufReader, Error};
 
 use config::reader;
 use config::types::Config;
+use pulldown_cmark::Parser;
+use pulldown_cmark::html::push_html;
 
 use nickel::*;
 use nickel::extensions::Redirect;
@@ -32,15 +34,18 @@ fn main() {
         let file = request.path_without_query();
         if let Ok(markdown_file) = read_file_to_string(file) {
             let mut data = HashMap::new();
-            let markdown_as_html = markdown::to_html(markdown_file.as_str());
-            data.insert("markdown_file", markdown_as_html);
+
+            let parser = Parser::new(markdown_file.as_str());
+            let mut html = String::new();
+            push_html(&mut html, parser);
+
+            data.insert("markdown_file", html);
             return response.render(theme.as_str(), &data);
         }
     });
     server.utilize(Mount::new("/themes/", StaticFilesHandler::new("themes")));
 
     let _server = server.listen(format!("localhost:{}", listening_port).as_str());
-    println!("Dokio is running on port {}", listening_port);
 }
 
 fn read_file_to_string(path: Option<&str>) -> Result<String, Error> {
