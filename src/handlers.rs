@@ -1,14 +1,16 @@
-extern crate iron;
 extern crate markdown;
 
 use std::path::{PathBuf, Path};
 use std::fs::File;
 use std::io::{Read,BufReader, Error};
+use std::collections::BTreeMap;
 
 use iron::prelude::*;
 use iron::{Url, Handler, status};
 use iron::modifiers::Redirect;
 use iron::headers::ContentType;
+
+use handlebars::Handlebars;
 
 pub struct IndexHandler {
     pub listening_port:i32,
@@ -30,12 +32,16 @@ impl Handler for IndexHandler {
 }
 
 pub struct MarkdownFileHandler {
-
+    handlebars:Handlebars
 }
 
 impl MarkdownFileHandler {
-    pub fn new() -> MarkdownFileHandler {
-        MarkdownFileHandler {}
+    pub fn new(theme:String) -> MarkdownFileHandler {
+        let mut handlebars = Handlebars::new();
+        if let Err(e) = handlebars.register_template_file("index", theme) {
+            panic!("{}", e);
+        }
+        MarkdownFileHandler {handlebars:handlebars}
     }
 }
 
@@ -44,9 +50,12 @@ impl Handler for MarkdownFileHandler {
         let markdown_file_path = map_request_url_path_to_local_file(req);
         let file_content = itry!(read_file_to_string(markdown_file_path.as_path()));
         let html : String = markdown::to_html(file_content.as_str());
-        Ok(Response::with((ContentType::html().0, status::Ok, html)))
-    }
 
+        let mut data = BTreeMap::new();
+        data.insert("markdown_content".to_string(), html);
+        let template = itry!(self.handlebars.render("index", &data));
+        Ok(Response::with((ContentType::html().0, status::Ok, template)))
+    }
 }
 
 fn read_file_to_string(path: &Path) -> Result<String, Error> {

@@ -4,8 +4,9 @@ version = "0.1.0"
 authors = ["Johannes Seitz <johannes.w.seitz@gmail.com>"]
 
 [dependencies]
-iron = "*"
-router = "*"
-markdown = "0.2.0"
+nickel = "*"
+markdown = "*"
 config = "0.1.0"
 
+[profile.release]
+lto = true
