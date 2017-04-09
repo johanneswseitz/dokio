@@ -43,7 +43,7 @@ fn main() {
             return response.render(theme.as_str(), &data);
         }
     });
-    server.utilize(Mount::new("/themes/", StaticFilesHandler::new("themes")));
+    server.utilize(Mount::new("/", StaticFilesHandler::new(".")));
 
     let _server = server.listen(format!("localhost:{}", listening_port).as_str());
 }

@@ -28,6 +28,24 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="/themes/dokio/js/bootstrap.min.js"></script>
+    <script src="/themes/dokio/js/lodash.min.js"></script>
+    <script src="/themes/dokio/js/dagre.min.js"></script>
+    <script src="/themes/dokio/js/nomnoml.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("pre.diagram").each(function(){
+                try {
+                    var diagramSource = $(this).text();
+                    var canvas = $("<canvas></canvas>");
+                    $(this).after(canvas);
+                    nomnoml.draw(canvas.get(0), diagramSource);
+                    $(this).hide();
+                } catch (error){
+                    $(this).addClass("bg-danger");
+                }
+            });
+        });
+    </script>
   </body>
 </html>
 
