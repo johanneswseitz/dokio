@@ -1,0 +1,61 @@
+# Based on the "trust" template v0.1.1
+# https://github.com/japaric/trust/tree/v0.1.1
+
+dist: trusty
+language: rust
+services: docker
+sudo: required
+
+env:
+  global:
+    - CRATE_NAME=dokio
+
+matrix:
+  include:
+    # Linux
+    - env: TARGET=x86_64-unknown-linux-gnu
+    - env: TARGET=x86_64-unknown-linux-musl
+
+    # OSX
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+
+before_install: set -e
+
+install:
+  - sh ci/install.sh
+  - source ~/.cargo/env || true
+
+script:
+  - bash ci/script.sh
+
+after_script: set +e
+
+before_deploy:
+  - sh ci/before_deploy.sh
+
+deploy:
+  api_key:
+    secure: "mC3OXhN9d9Q1K9yAfzXcUWUzR5vnymyXWINQU7vVlqYoKhAOtCSOiIbq9a2ZCI3FDBiWRrNJGWue0QSt02kg19cz0YV5JmjP+Ao0DgP8zMTdxeXgt/YmZBikl0nzBrb1Cl4L1RHNNI8d69ze26xGvHQvT3CWxOZ2QSA7xH9OMyosKCLCykdWnuvvRaHGnvHC9JR52/wSb2nEsRa8RtVELuGcswYnnMUffp14k44XZinECXGWme+Jnq5sBmvAZwN8k0ncZJcg5RUdY+47IxtoFmiKuH5T2OrZFEaBk5KFFdIqLu44NpOQDk6747SdQ4Y5JbCeEZ86ETGXuFbsG5e5WkTQ8xyQYNXEALG5NGOEd74eh9wP723S969kXCN2GGSZIowjvvnRTJyy+tkVsmjFwkSBQ/r1urjC0jzvL3B1mbREG6eMG55bsE2Z9auTaErQzCLUs/cIa0aH0Bp/Z9im+FEDwUYfFUbQ5h3dPssXMJTUi6N0ojie8i09OnCu7zPA+3ZKU8xqyNny+fyxGyTq7fVYE0d1xk3H5LJ5tfaYPIujnaTIBqN8Od0ZiEp7ARr2W/shww6rFbYzDLimzpOccpE8AyNLcW+AxtechFcnOx+GZHSvICJuNZBQ0nnR9g3JvY8kOoOGu/YrkRwemCMMkp82BBdlOokcYM29Ph8FY58="
+file_glob: true
+  file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
+  on:
+    condition: $TRAVIS_RUST_VERSION = stable
+    tags: true
+  provider: releases
+  skip_cleanup: true
+
+cache: cargo
+before_cache:
+  # Travis can't cache files that are not readable by "others"
+  - chmod -R a+r $HOME/.cargo
+
+branches:
+  only:
+    # release tags
+    - /^v\d+\.\d+\.\d+.*$/
+    - master
+
+notifications:
+  email:
+    on_success: never
