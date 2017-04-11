@@ -20,7 +20,7 @@ main() {
     cross rustc --bin dokio --target $TARGET --release -- -C lto
 
     cp target/$TARGET/release/dokio $stage/
-    cp -r themes/ $stage/
+    cp -R themes $stage/
     cp README.md $stage/
 
     cd $stage
