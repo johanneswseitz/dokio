@@ -11,7 +11,7 @@ Set-Location $STAGE
 $ZIP = "$SRC_DIR\$($Env:CRATE_NAME)-$($Env:APPVEYOR_REPO_TAG_NAME)-$($Env:TARGET).zip"
 
 Copy-Item "$SRC_DIR\target\$($Env:TARGET)\release\dokio.exe" '.\'
-Copy-Item "$SRC_DIR\themes\*" '.\'
+Copy-Item -Path "$SRC_DIR\themes" '.\' -Recurse
 Copy-Item "$SRC_DIR\README.md" '.\'
 
 7z a "$ZIP" *
