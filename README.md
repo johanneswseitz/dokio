@@ -8,7 +8,7 @@ Dokio is a Wiki for *agile software and architecture documentation* that lives i
 
 ### It's Markdown powered by [pulldown-cmark](https://docs.rs/pulldown-cmark/0.0.11/pulldown_cmark/)
 
-You can use the full Markdown syntax as defined by the [commonmark]() standard to write your documentation. Including 
+You can use the full Markdown syntax as defined by the [CommonMark](http://commonmark.org/) standard to write your documentation. Including 
 images, hyperlinks and if that's not enough, you can always fall back on plain html.
 
 ### It's diagrams as code powered by [nomnoml](http://nomnoml.com/)
