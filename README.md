@@ -43,6 +43,10 @@ Don't like the above theme? Write your own! It's easy.
 One of the next big features will be the ability to link your source code and documentation, so that they never go out 
 of date again.
 
+## Download
+
+You can grab the latest version [here](https://github.com/Ookami86/dokio/releases)
+
 ## Documentation
 
 Dokio is documented using Dokio. Run it with `cargo run` in order to get the best out if this documentation:
